@@ -59,9 +59,29 @@ class Mesh{
     return center.copy().sub(loc).magSq() < center.copy().sub(edge).magSq();
   }
   
-  void display(){
+  void displayDelaunay(){
     for(int i = 0; i < triangles.size(); i++){
+      
+      pushStyle();
+      if(triangles.get(i).average().dist(new PVector(width/2, height/2)) < 400){
+        fill(255, 0, 0);
+      }else{
+        fill(255);
+      }
+      
       triangles.get(i).display();
+      
+      popStyle();
+    }
+  }
+  
+  void displayVoronoi(){
+    for(int i = 0; i < triangles.size(); i++){
+      //triangles.get(i).display();
+      for(int j = 0; j < triangles.get(i).edges.length; j++){
+        line(triangles.get(i).circumcenter().x, triangles.get(i).circumcenter().y, (triangles.get(i).edges[j].points[0].x + triangles.get(i).edges[j].points[1].x) / 2, (triangles.get(i).edges[j].points[0].y + triangles.get(i).edges[j].points[1].y) / 2);
+        ellipse(triangles.get(i).circumcenter().x, triangles.get(i).circumcenter().y, 10, 10);
+      }
     }
   }
   

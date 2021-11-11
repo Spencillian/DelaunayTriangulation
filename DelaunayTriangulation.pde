@@ -3,8 +3,12 @@ PVector[] directions;
 Mesh m;
 
 void setup(){
-  size(1000, 1000);
+  //size(1000, 1000);
+  fullScreen();
   frameRate(30);
+  strokeWeight(3);
+  strokeJoin(ROUND);
+  strokeCap(ROUND);
   noFill();
   
   points = new PVector[100];
@@ -20,13 +24,13 @@ void setup(){
   }
   
   m = new Mesh(points);
-  m.display();
+  m.displayDelaunay();
   
   saveFrame("out.png");
 }
 
 void draw(){
-  background(200);
+  background(255);
   for(int i = 0; i < points.length; i++){
     points[i].add(directions[i]);
     
@@ -51,5 +55,6 @@ void draw(){
   }
   
   m = new Mesh(points);
-  m.display();
+  //m.displayDelaunay();
+  m.displayVoronoi();
 }
