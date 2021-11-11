@@ -17,7 +17,7 @@ class Mesh{
       }
       
       ArrayList<Edge> polygon = listEdges(badTriangles);
-      for(int j = 0; j < polygon.size(); j++){
+      for(int j = polygon.size() - 1; j >= 0; j--){
         boolean match = false;
         for(int k = polygon.size() - 1; k > j; k--){
           if(polygon.get(j).equals(polygon.get(k))){
@@ -27,7 +27,6 @@ class Mesh{
         }
         if(match){
           polygon.remove(j);
-          j--;
         }
       }
       
@@ -44,12 +43,13 @@ class Mesh{
       }
     }
     
-    for(int i = triangles.size() - 1; i >= 0; i--){
+    for(int i = triangles.size() - 1; i >= 0; i--){ // Somehow this loop can go out of bounds...? not sure if it's worth figuring out why
       for(int j = 0; j < 3; j++){
 
         // Ever heard of using mutliple lines /jesus fuck/
         if(triangles.get(i).points()[j].equals(new PVector(-1, -1)) || triangles.get(i).points()[j].equals(new PVector(width * 2, 0)) || triangles.get(i).points()[j].equals(new PVector(0, height * 2))){
           triangles.remove(i);
+          break;
         }
       }
     }
